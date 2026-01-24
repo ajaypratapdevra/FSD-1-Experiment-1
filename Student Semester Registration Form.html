@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Student Semester Registration Form </title>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      width: 400px;
+      margin: auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+
+    fieldset {
+      margin-top: 15px;
+      padding: 10px;
+    }
+
+    legend {
+      font-weight: bold;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Student Registration Form</h1>
+  <form>
+    <label>Student Name:</label>
+    <input type="text" name="student_name" required><br><br>
+      
+    <label>Email Address:</label>
+    <input type="email" name="email" required><br><br>
+      
+    <label>Student Age:</label>
+    <input type="number" name="age" min="18" required><br><br>
+
+    <input type="submit" value="Register">
+    
+  </form>
+</body>
+</html>
