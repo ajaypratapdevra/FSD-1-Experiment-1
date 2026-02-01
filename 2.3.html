@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>SVG Tool</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      padding: 10px;
+      background: #f4f6f8;
+    }
+    svg {
+      width: 100vw;
+      height: 70vh;
+      border: 2px solid #333;
+      background: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <select id="s">
+    <option value="rect">Rect</option>
+    <option value="circle">Circle</option>
+    <option value="path">Pencil</option>
+  </select>
+
+  <input type="color" id="c" value="#ff0000">
+  <button onclick="u()">Undo</button>
+
+  <svg id="v"></svg>
+
+  <script>
+    const v = s => document.getElementById(s),
+          svg = v("v"),
+          sh  = v("s"),
+          cp  = v("c");
+
+    let x, y, o, a = [], d = "";
+
+    svg.onmousedown = e => {
+      x = e.offsetX;
+      y = e.offsetY;
+
+      if (sh.value == "path") {
+        d = `M${x} ${y}`;
+        o = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        o.setAttribute("d", d);
+        o.setAttribute("fill", "none");
+        o.setAttribute("stroke", cp.value);
+        o.setAttribute("stroke-width", 2);
+      } else {
+        o = document.createElementNS("http://www.w3.org/2000/svg", sh.value);
+
+        if (sh.value == "rect") {
+          o.setAttribute("x", x);
+          o.setAttribute("y", y);
+          o.setAttribute("width", 0);
+          o.setAttribute("height", 0);
+        } else {
+          o.setAttribute("cx", x);
+          o.setAttribute("cy", y);
+          o.setAttribute("r", 0);
+        }
+        o.setAttribute("fill", cp.value);
+      }
+      svg.appendChild(o);
+    };
+
+    svg.onmousemove = e => {
+      if (!o) return;
+
+      let X = e.offsetX,
+          Y = e.offsetY;
+
+      if (sh.value == "rect") {
+        o.setAttribute("x", Math.min(X, x));
+        o.setAttribute("y", Math.min(Y, y));
+        o.setAttribute("width", Math.abs(X - x));
+        o.setAttribute("height", Math.abs(Y - y));
+      } else if (sh.value == "circle") {
+        o.setAttribute("r", Math.hypot(X - x, Y - y));
+      } else {
+        d += ` L${X} ${Y}`;
+        o.setAttribute("d", d);
+      }
+    };
+
+    svg.onmouseup = () => {
+      if (o) {
+        a.push(o);
+        o = null;
+      }
+    };
+
+    function u() {
+      if (a.length) svg.removeChild(a.pop());
+    }
+  </script>
+</body>
+</html>

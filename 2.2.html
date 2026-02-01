@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dynamic Product Filter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .filter {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    select {
+      padding: 8px 12px;
+      font-size: 16px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .price {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Dynamic Product Filter</h1>
+
+<div class="filter">
+  <label>Filter by Category: </label>
+  <select id="categoryFilter" onchange="filterProducts()">
+    <option value="All">All</option>
+    <option value="Electronics">Electronics</option>
+    <option value="Clothing">Clothing</option>
+    <option value="Books">Books</option>
+  </select>
+</div>
+
+<div class="products" id="productList"></div>
+
+<script>
+  const products = [
+    { name: "Laptop", category: "Electronics", price: 59999 },
+    { name: "Smartphone", category: "Electronics", price: 29999 },
+    { name: "T-Shirt", category: "Clothing", price: 799 },
+    { name: "Jeans", category: "Clothing", price: 1999 },
+    { name: "JavaScript Book", category: "Books", price: 499 },
+    { name: "React Guide", category: "Books", price: 699 }
+  ];
+
+  function displayProducts(items) {
+    const list = document.getElementById("productList");
+    list.innerHTML = "";
+
+    items.forEach(product => {
+      list.innerHTML += `
+        <div class="card">
+          <h3>${product.name}</h3>
+          <p>Category: ${product.category}</p>
+          <p class="price">₹${product.price.toFixed(2)}</p>
+        </div>
+      `;
+    });
+  }
+
+  function filterProducts() {
+    const selected = document.getElementById("categoryFilter").value;
+
+    if (selected === "All") {
+      displayProducts(products);
+    } else {
+      const filtered = products.filter(p => p.category === selected);
+      displayProducts(filtered);
+    }
+  }
+
+  // Initial load
+  displayProducts(products);
+</script>
+
+</body>
+</html>

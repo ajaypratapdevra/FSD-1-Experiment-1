@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Example</title>
+<style>
+  textarea {
+    width: 100%;
+    min-height: 100px;
+    font-size: 16px;
+    padding: 8px;
+  }
+  .warning {
+    color: #d9534f;
+  }
+    .progress-container {
+      width: 100%;
+      height: 6px;
+      background: #eee;
+      border-radius: 4px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #5bc0de;
+      transition: width 0.2s ease, background 0.2s ease;
+    }
+
+    .progress-warning {
+      background: #d9534f;
+    }
+</style>
+</head>
+<body>
+  <textarea id="message" maxlength="200"></textarea>
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div id="status">
+    <span id="count">0</span>/<span id="limit">200</span>
+  </div>
+<script src="script.js"></script>
+</body>
+</html>
